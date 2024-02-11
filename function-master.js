@@ -219,13 +219,17 @@ return object;
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
-// let nonduplicates = [];
-// for(let i = 0; i < array.length; i++){
-//     if(array[i] !== array[i] + 1){
-//         array[i].push(nonduplicates);
-//     }
-// }
-// return nonduplicates;
+//create non duplicate array
+let nonduplicates = [];
+for(let i = 0; i < array.length; i++){
+    //check if the current element doesn't match the next 2 elements
+    if(array[i] !== array[i + 1] && array[i] !== array[i + 2]){
+        //if no match, it's not a duplicate
+        nonduplicates.push(array[i]);
+    }
+
+}
+return nonduplicates;
 }
 
 //////////////////////////////////////////////////////////////////////
