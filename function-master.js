@@ -83,6 +83,8 @@ return words.join(" ");
 //////////////////////////////////////////////////////////////////////
 
 function welcomeMessage(object) {
+    //Must account for lowerCase first letter of name and make sure it's capitalized
+    return "Welcome " + object.name[0].toUpperCase() + object.name.slice(1) + "!"; 
 
 }
 
@@ -91,7 +93,8 @@ function welcomeMessage(object) {
 //////////////////////////////////////////////////////////////////////
 
 function profileInfo(object) {
-
+    //should log Name is a Species
+return object.name[0].toUpperCase() + object.name.slice(1)  + " is a " + object.species[0].toUpperCase() + object.species.slice(1)
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -99,7 +102,12 @@ function profileInfo(object) {
 //////////////////////////////////////////////////////////////////////
 
 function maybeNoises(object) {
-
+//if this object has a noises array with values inside, return that data as a string seperated by spaces
+if(Array.isArray(object.noises) && object.noises.length > 0){
+    return object.noises.join(" ");
+}
+//otherwise return there are no noises
+return "there are no noises"
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -107,7 +115,20 @@ function maybeNoises(object) {
 //////////////////////////////////////////////////////////////////////
 
 function hasWord(string, word) {
-
+//if word is inside of string, return true. Otherwise return false
+console.log("STRRINGG", string,"WOOORDDD", word)
+//split string into an array to have access to each word inside the string
+let stringArr = string.split(" ");
+//loop through the stringArr to compare each word with our given word
+for(let i = 0; i < stringArr.length; i++){
+    //if the current string matches word
+    if(stringArr[i] === word){
+        //return true
+        return true
+    }
+}
+//Otherwise
+return false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -115,7 +136,10 @@ function hasWord(string, word) {
 //////////////////////////////////////////////////////////////////////
 
 function addFriend (name, object) {
-
+console.log("BIG DAWG", object.friends)
+object.friends.push(name)
+console.log("FRIENDS< HOW MANY OF US HAVE THEM?", object.friends);
+return object
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -123,7 +147,17 @@ function addFriend (name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function isFriend(name, object) {
-
+    // if(!object.keys){
+    //     return false;
+    // }
+    //if there are no keys in the object
+    if(Object.keys(object).length === 0){
+        return false;
+    }
+else if(object.friends.includes(name)){
+    return true;
+}
+return false;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -131,6 +165,22 @@ function isFriend(name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function nonFriends(name, array) {
+console.log("ARRAY!", array, "NAME", name);
+//array is a list of objects
+let list = [];
+for(let i = 0; i < array.length; i++){
+console.log("HI THERE BROTHER", array[i].friends);
+if(name !== array[i].name){
+    if(array[i].friends.includes(name) === false){
+        console.log("BAM", array[i].name);
+        list.push(array[i].name);
+    }
+
+}
+}
+return list;
+//return a list of all the non friends (friends that don't include name)
+
 
 }
 
@@ -139,7 +189,11 @@ function nonFriends(name, array) {
 //////////////////////////////////////////////////////////////////////
 
 function updateObject(object, key, value) {
-
+if(!object[key]){
+    object[key] = value;
+}
+object[key] = value;
+return object;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -147,7 +201,17 @@ function updateObject(object, key, value) {
 //////////////////////////////////////////////////////////////////////
 
 function removeProperties(object, array) {
-
+    //array is an array of strings used to compare with each key in object 
+for(let key in object){
+    for(let i = 0; i < array.length; i++){
+        //if the key name matches the current string
+        if(key === array[i]){
+            //remove that property
+            delete object[key];
+        }
+    }
+}
+return object;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -155,7 +219,13 @@ function removeProperties(object, array) {
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
-
+// let nonduplicates = [];
+// for(let i = 0; i < array.length; i++){
+//     if(array[i] !== array[i] + 1){
+//         array[i].push(nonduplicates);
+//     }
+// }
+// return nonduplicates;
 }
 
 //////////////////////////////////////////////////////////////////////
